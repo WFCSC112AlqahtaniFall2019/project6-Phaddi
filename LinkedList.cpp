@@ -104,39 +104,39 @@ void LinkedList::InsertionSort()
     Node *trailer = head;
     Node *sorter = head;
 
-    if(head == nullptr || head->next == nullptr)
+    if(head == nullptr || head->next == nullptr) //case 1: if list is empty - return
     {
         return;
     }
 
-    while(current != nullptr)
+    while(current != nullptr) //exits while loop when the current node reaches the end
     {
-        if(current->value > trailer->value)
+        if(current->value > trailer->value) //if current is larger than the previous, we are sorted, and can move forward
         {
-            current = current->next;
-            trailer = trailer->next;
+            current = current->next; //move forward
+            trailer = trailer->next; //move forward
         }
         else
         {
-            if(head->value > current-> value)
+            if(head->value > current-> value) //case 2: if head is larger than the current, we must replace the head with the current
             {
-                trailer->next = current->next;
+                trailer->next = current->next; //how i did my swap, dont need a temp
                 current->next = head;
                 head = current;
             }
             else
             {
                 sorter = head;
-                while((sorter != nullptr) && sorter->next->value < current->value)
+                while((sorter != nullptr) && sorter->next->value < current->value) //case 3: an unsorted number must be placed accurately in the list, this while loop finds the spot
                 {
-                    sorter = sorter->next;
+                    sorter = sorter->next;  //moves forward till while loop parameter is incorrect
                 }
-                trailer->next = current->next;
+                trailer->next = current->next; //swaps and inserts once the correct spot is found (while loop does the finding)
                 current->next = sorter->next;
                 sorter->next = current;
             }
         }
-        current = trailer->next;
+        current = trailer->next; //keeps the trailer right behind current, as current moves forward
     }
 
 }
